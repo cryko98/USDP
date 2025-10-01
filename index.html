@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USDP - First Stablecoin on Pump</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for external icons (e.g., X.com) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Google Font for futuristic header (Orbitron) -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Tailwind configuration */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'neon-green': '#50E3C2', /* Bright green color from the image */
+                        'deep-dark': '#000000', /* Set to pure black */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        // Új futurisztikus betűtípus a tickerhez/fejléchez
+                        'futuristic': ['Orbitron', 'sans-serif'], 
+                    }
+                }
+            }
+        }
+    </style>
+    <style>
+        /* LÉGZŐ ÁRNYÉK ANIMÁCIÓ */
+        @keyframes pulseGlow {
+            0%, 100% { 
+                box-shadow: 0 0 10px #50E3C2, 0 0 20px #50E3C2, 0 0 40px rgba(80, 227, 194, 0.4); 
+            }
+            50% { 
+                box-shadow: 0 0 20px #50E3C2, 0 0 40px #50E3C2, 0 0 60px rgba(80, 227, 194, 0.6); 
+            }
+        }
+
+        /* ÚJ LEBEGŐ (FLOATING) ANIMÁCIÓ */
+        @keyframes hoverFloat {
+            0% { 
+                transform: translateY(0) rotate(0); 
+                filter: hue-rotate(0deg); 
+            }
+            50% { 
+                transform: translateY(-8px) rotate(1deg); /* Enyhe lebegés és dőlés */
+                filter: hue-rotate(10deg); 
+            }
+            100% { 
+                transform: translateY(0) rotate(0); 
+                filter: hue-rotate(0deg); 
+            }
+        }
+        
+        /* NYOMVONAL/GLITCH ANIMÁCIÓ */
+        @keyframes trailGlow {
+            0% { transform: rotate(0deg); opacity: 0.5; }
+            100% { transform: rotate(360deg); opacity: 0.8; }
+        }
+
+        .spin-logo-container {
+            position: relative;
+            width: 256px; /* A logó maximális mérete (w-64) */
+            height: 256px; /* A logó maximális mérete (h-64) */
+            /* A futurisztikus fényhatás és a lebegés is a konténeren van, így együtt mozognak */
+            animation: pulseGlow 3s ease-in-out infinite, hoverFloat 3s ease-in-out infinite; 
+            border-radius: 9999px; /* Kör alakú árnyékhoz */
+        }
+        
+        .spin-logo {
+            /* Az animációt elvettük a belső képtől */
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            border: 4px solid #50E3C2; /* Vastagabb neon keret */
+            transition: box-shadow 0.5s ease;
+            position: absolute; /* Helyezze a konténerbe */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Futurisztikus nyomvonal/glitch effektus */
+        .spin-logo-container::after {
+            content: '';
+            position: absolute;
+            top: -10px; 
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(80, 227, 194, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+            /* A nyomvonal effektus */
+            animation: trailGlow 1s linear infinite reverse, pulseGlow 3s linear infinite;
+            filter: blur(5px);
+            transform-origin: center center;
+        }
+
+        /* Responsive adjustment for mobile */
+        @media (max-width: 640px) {
+            .spin-logo-container {
+                width: 192px; /* w-48 */
+                height: 192px; /* h-48 */
+            }
+            .spin-logo-container::after {
+                top: -5px; 
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+            }
+        }
+        
+        /* Dexscreener embed style (a többi változatlan) */
+        #dexscreener-embed {
+            position: relative;
+            width: 100%;
+            padding-bottom: 125%; 
+        }
+        @media(min-width: 1400px){
+            #dexscreener-embed {
+                padding-bottom: 65%;
+            }
+        }
+        #dexscreener-embed iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border: 0;
+            border-radius: 1rem;
+        }
+        @media (max-width: 768px) {
+            #dexscreener-embed {
+                padding-bottom: 150%;
+            }
+        }
+    </style>
+</head>
+
+<!-- INLINE STYLE a 100% fekete háttér biztosításához -->
+<body class="bg-deep-dark text-white font-sans min-h-screen" style="background-color: #000000 !important;">
+
+    <!-- CA Copy Feedback Message -->
+    <div id="copy-message" class="fixed top-5 right-5 z-50 p-3 bg-neon-green text-deep-dark rounded-xl shadow-lg transition-opacity duration-300 opacity-0 transform translate-x-10" role="alert">
+        CA Copied to Clipboard!
+    </div>
+
+    <!-- Navigation Bar (Header) -->
+    <nav class="sticky top-0 z-40 bg-deep-dark shadow-xl shadow-neon-green/10 border-b-2 border-neon-green/70">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Left Side: Logo and Ticker (Frissített betűtípus és szöveg) -->
+                <div class="flex items-center space-x-4">
+                    <img src="https://pbs.twimg.com/profile_images/1972993563064492032/nm0o8Mz6_400x400.jpg" alt="USDP Logo" class="h-10 w-10 rounded-full object-cover shadow-lg shadow-neon-green/30">
+                    <!-- Ticker és a teljes leírás, Orbitron betűtípussal -->
+                    <div class="flex items-baseline space-x-2">
+                        <span class="text-3xl font-extrabold text-neon-green tracking-wider font-futuristic">$USDP</span>
+                        <!-- Frissített stílus: vastagabb, nagyobb, fehér színű -->
+                        <span class="hidden sm:inline text-lg font-bold text-white tracking-tight ml-3">FIRST STABLECOIN ON PUMP</span>
+                    </div>
+                </div>
+                
+                <!-- Right Side: CA, X.com, Navigation Links -->
+                <div class="flex items-center space-x-4 sm:space-x-6">
+
+                    <!-- Navigation Links -->
+                    <div class="hidden md:flex space-x-4">
+                        <a href="#hero" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">Home</a>
+                        <a href="#about" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">About</a>
+                        <a href="#buy" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">How to Buy</a>
+                        <a href="#chart" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">Chart</a>
+                    </div>
+
+                    <!-- CA Box (Háttér: gray-950, kiemelés neon zölddel) -->
+                    <div id="ca-box" class="flex items-center bg-gray-950 p-2 rounded-xl cursor-pointer border border-neon-green/50 hover:bg-neon-green/20 transition duration-200 shadow-md shadow-neon-green/30" title="Click to Copy">
+                        <span class="text-sm font-semibold text-neon-green mr-2 hidden sm:inline">CA:</span>
+                        <span id="ca-address" class="text-sm font-mono text-white truncate max-w-[150px]">8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG</span>
+                        <i class="fas fa-copy text-neon-green ml-2 text-xs"></i>
+                    </div>
+
+                    <!-- X.com link -->
+                    <a href="https://x.com/USDPpump" target="_blank" rel="noopener noreferrer" class="text-white hover:text-neon-green transition duration-200">
+                        <i class="fab fa-x-twitter text-3xl hover:shadow-xl hover:shadow-neon-green/40 rounded-full"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center py-16 sm:py-20 lg:py-24">
+            
+            <!-- A logó konténerén megemeltem az alsó margót: mb-12 -->
+            <div class="flex flex-col items-center justify-center mb-12">
+                <!-- LOGO KONTÉNER AZ ÚJ PULZÁLÓ ÉS NYOMVONAL EFFEKTUSOKHOZ -->
+                <div class="spin-logo-container w-48 h-48 sm:w-64 sm:h-64 mb-2">
+                    <!-- 3D Lebegő Logó -->
+                    <img src="https://pbs.twimg.com/profile_images/1972993563064492032/nm0o8Mz6_400x400.jpg" alt="USDP Spinning Logo" class="spin-logo rounded-full object-cover shadow-2xl shadow-neon-green/70">
+                </div>
+            </div>
+            
+            <!-- Main Image -->
+            <div class="mt-4 rounded-3xl overflow-hidden shadow-2xl shadow-neon-green/40 border-2 border-neon-green/50">
+                <img src="https://pbs.twimg.com/media/G2FmG_OXoAAWCZJ?format=jpg&name=large" alt="USDP Banner Image" class="w-full h-auto object-cover">
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">About: The OG Pump Stablecoin</h2>
+            <div class="max-w-4xl mx-auto text-center space-y-6 text-lg">
+                <p class="text-gray-300">
+                    USDP is the first stablecoin launched on the <strong class="text-neon-green drop-shadow-sm shadow-neon-green">Pump.fun</strong> platform, a pioneering attempt to combine stability with meme culture on the Solana blockchain.
+                </p>
+                <!-- Kiemelt doboz háttér: gray-950 -->
+                <p class="text-xl font-bold text-white p-4 bg-gray-950 rounded-xl shadow-inner shadow-neon-green/50 border border-neon-green/30">
+                    USDP is the OG pumpfun stablecoin.
+                    <br>
+                    <span class="block mt-2 text-sm font-light text-neon-green drop-shadow-sm shadow-neon-green">544 days old. clean ticker. pump meta. stablecoin meta.</span>
+                </p>
+                <p class="text-gray-300">
+                    Our goal is to bring a new dimension to decentralized finance (DeFi), where community spirit meets the reliability of financial assets. Join the Pump movement!
+                </p>
+            </div>
+        </section>
+
+        <!-- How to Buy Section -->
+        <section id="buy" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">How to Buy $USDP?</h2>
+            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                
+                <!-- Step 1 (Háttér: gray-950, neon zöld kiemelés) -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">1</span>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Get a Solana Wallet</h3>
+                    <p class="text-gray-400">Download and set up a Phantom or Solflare wallet. These support the Solana network.</p>
+                </div>
+
+                <!-- Step 2 (Háttér: gray-950, neon zöld kiemelés) -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">2</span>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Buy SOL</h3>
+                    <p class="text-gray-400">Fund your wallet with SOL (Solana) by purchasing it on a centralized exchange (e.g., Binance, Kraken).</p>
+                </div>
+
+                <!-- Step 3 (Háttér: gray-950, neon zöld kiemelés) -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">3</span>
+                    <h3 class="text-2xl font-semibold mb-3 text-white">Swap for $USDP</h3>
+                    <p class="text-gray-400">Navigate to a Solana DEX (e.g., Raydium, Jupiter) and swap your SOL for $USDP using the Contract Address (CA).</p>
+                    <button onclick="copyCA('8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG')" class="mt-4 w-full bg-neon-green text-deep-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-neon-green/50 hover:shadow-neon-green/80">
+                        Copy CA
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section id="chart" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">Dexscreener Chart</h2>
+            <div id="dexscreener-embed" class="shadow-2xl shadow-neon-green/50 rounded-2xl overflow-hidden border border-neon-green/50">
+                <iframe src="https://dexscreener.com/solana/B71cRkgnCSvST1VaX2YTeySqjdE1viAPLV8wzJRUMvds?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"></iframe>
+            </div>
+        </section>
+        
+        <!-- Footer (Neon Zöld vonal) -->
+        <footer class="text-center py-8 mt-10 border-t border-neon-green/50 text-gray-400 text-sm">
+            &copy; 2025 USDP - First stable coin on Pump. All rights reserved.
+        </footer>
+
+    </main>
+
+    <script>
+        // JavaScript for CA copying and animated feedback
+        const caAddress = "8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG";
+        const caBox = document.getElementById('ca-box');
+        const copyMessage = document.getElementById('copy-message');
+
+        /**
+         * Copies the given text to the clipboard and shows a feedback message.
+         * @param {string} text The text to be copied to the clipboard.
+         */
+        function copyCA(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show feedback
+                copyMessage.textContent = 'CA Copied to Clipboard!';
+                copyMessage.classList.remove('opacity-0', 'translate-x-10');
+                copyMessage.classList.add('opacity-100', 'translate-x-0');
+                
+                // Hide after 3 seconds
+                setTimeout(() => {
+                    copyMessage.classList.remove('opacity-100', 'translate-x-0');
+                    copyMessage.classList.add('opacity-0', 'translate-x-10');
+                }, 3000);
+
+            }).catch(err => {
+                console.error('Copy failed (trying fallback):', err);
+                // Fallback: For older browsers/environments
+                try {
+                    const tempInput = document.createElement('input');
+                    tempInput.value = text;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    
+                    // Show feedback on successful fallback
+                    copyMessage.textContent = 'CA Copied (Fallback)!';
+                    copyMessage.classList.remove('opacity-0', 'translate-x-10');
+                    copyMessage.classList.add('opacity-100', 'translate-x-0');
+                    setTimeout(() => {
+                        copyMessage.classList.remove('opacity-100', 'translate-x-0');
+                        copyMessage.classList.add('opacity-0', 'translate-x-10');
+                        copyMessage.textContent = 'CA Copied to Clipboard!'; // Restore original message
+                    }, 3000);
+                } catch (err) {
+                    console.error('Copy failed with fallback as well.', err);
+                    // Handle error gracefully (e.g., using a custom modal)
+                }
+            });
+        }
+
+        // Event listener for the CA Box in the header
+        caBox.addEventListener('click', () => {
+            copyCA(caAddress);
+        });
+
+        // Expose the global copyCA so the buy button can use it
+        window.copyCA = copyCA;
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
