@@ -9,8 +9,9 @@
     <!-- Font Awesome for external icons (e.g., X.com) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <!-- Google Font for futuristic header (Orbitron) -->
+    <!-- Google Font for futuristic header (Orbitron) and main text (Inter) -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
         /* Custom Tailwind configuration */
@@ -23,7 +24,6 @@
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        // Új futurisztikus betűtípus a tickerhez/fejléchez
                         'futuristic': ['Orbitron', 'sans-serif'], 
                     }
                 }
@@ -31,7 +31,21 @@
         }
     </style>
     <style>
-        /* LÉGZŐ ÁRNYÉK ANIMÁCIÓ */
+        /* ÚJ: HÁTTÉR MÁTRIX/GRID ANIMÁCIÓ */
+        @keyframes matrixPulse {
+            0% { transform: scale(1); opacity: 0.05; }
+            50% { transform: scale(1.05); opacity: 0.15; }
+            100% { transform: scale(1); opacity: 0.05; }
+        }
+
+        /* ÚJ: CSILLOGÓ ZAJ ANIMÁCIÓ (Háttér elmozdulás és pulzálás) */
+        @keyframes sparkleNoise {
+            0% { background-position: 0 0; opacity: 0.2; }
+            50% { opacity: 0.05; }
+            100% { background-position: -500px -500px; opacity: 0.2; }
+        }
+
+        /* LÉGZŐ ÁRNYÉK ANIMÁCIÓ (Kiemelt Pulzálás) */
         @keyframes pulseGlow {
             0%, 100% { 
                 box-shadow: 0 0 10px #50E3C2, 0 0 20px #50E3C2, 0 0 40px rgba(80, 227, 194, 0.4); 
@@ -41,20 +55,11 @@
             }
         }
 
-        /* ÚJ LEBEGŐ (FLOATING) ANIMÁCIÓ */
+        /* LEBEGŐ (FLOATING) ANIMÁCIÓ */
         @keyframes hoverFloat {
-            0% { 
-                transform: translateY(0) rotate(0); 
-                filter: hue-rotate(0deg); 
-            }
-            50% { 
-                transform: translateY(-8px) rotate(1deg); /* Enyhe lebegés és dőlés */
-                filter: hue-rotate(10deg); 
-            }
-            100% { 
-                transform: translateY(0) rotate(0); 
-                filter: hue-rotate(0deg); 
-            }
+            0% { transform: translateY(0) rotate(0); }
+            50% { transform: translateY(-8px) rotate(1deg); } 
+            100% { transform: translateY(0) rotate(0); }
         }
         
         /* NYOMVONAL/GLITCH ANIMÁCIÓ */
@@ -63,59 +68,100 @@
             100% { transform: rotate(360deg); opacity: 0.8; }
         }
 
-        .spin-logo-container {
-            position: relative;
-            width: 256px; /* A logó maximális mérete (w-64) */
-            height: 256px; /* A logó maximális mérete (h-64) */
-            /* A futurisztikus fényhatás és a lebegés is a konténeren van, így együtt mozognak */
-            animation: pulseGlow 3s ease-in-out infinite, hoverFloat 3s ease-in-out infinite; 
-            border-radius: 9999px; /* Kör alakú árnyékhoz */
-        }
+        /* **FŐ ANIMÁCIÓS STÍLUSOK ALKALMAZÁSA** */
         
-        .spin-logo {
-            /* Az animációt elvettük a belső képtől */
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            border: 4px solid #50E3C2; /* Vastagabb neon keret */
-            transition: box-shadow 0.5s ease;
-            position: absolute; /* Helyezze a konténerbe */
+        body {
+            position: relative;
+            overflow-x: hidden; /* Megelőzi a horizontális scrollbart az abszolút elemek miatt */
+        }
+
+        /* 1. FUTURISZTIKUS HÁTTÉR (GRID - LEGALUL) */
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            /* A GRID vonalak - Átlászóság 0.05-ről 0.1-re emelve a jobb neonzöld láthatóság érdekében */
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(80, 227, 194, 0.1) 50px),
+                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(80, 227, 194, 0.1) 50px);
+            background-size: 50px 50px;
+            z-index: -2; /* Minden alatt legyen */
+            animation: matrixPulse 10s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        /* Futurisztikus nyomvonal/glitch effektus */
-        .spin-logo-container::after {
+        /* 2. HÁTTÉR ZAJ/CSILLOGÁS RÉTEG (NOISE/SPARKLE - A GRID FELETT) */
+        body::after {
             content: '';
-            position: absolute;
-            top: -10px; 
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            border: 2px solid rgba(80, 227, 194, 0.2);
-            border-radius: 50%;
-            z-index: -1;
-            /* A nyomvonal effektus */
-            animation: trailGlow 1s linear infinite reverse, pulseGlow 3s linear infinite;
-            filter: blur(5px);
-            transform-origin: center center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Egy apró pontokból álló "star field" minta létrehozása */
+            background-image: radial-gradient(circle, rgba(80, 227, 194, 0.5) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1; /* A grid felett, de a tartalom alatt */
+            animation: sparkleNoise 25s linear infinite; /* Lassú, folyamatos elmozdulás és pulzálás */
+            pointer-events: none; /* Ne akadályozza az egérkattintásokat */
         }
 
-        /* Responsive adjustment for mobile */
-        @media (max-width: 640px) {
-            .spin-logo-container {
-                width: 192px; /* w-48 */
-                height: 192px; /* h-48 */
-            }
-            .spin-logo-container::after {
-                top: -5px; 
-                left: -5px;
-                right: -5px;
-                bottom: -5px;
-            }
+
+        /* 3. LOGÓ ANIMÁCIÓK */
+        .spin-logo-container {
+            position: relative;
+            width: 256px; 
+            height: 256px; 
+            animation: pulseGlow 3s ease-in-out infinite, hoverFloat 3s ease-in-out infinite; 
+            border-radius: 9999px; 
         }
         
+        .spin-logo {
+            border: 4px solid #50E3C2; 
+        }
+
+        .spin-logo-container::after {
+            /* A nyomvonal effektus */
+            animation: trailGlow 10s linear infinite, pulseGlow 3s linear infinite reverse; /* Lassú, folyamatos forgás */
+        }
+
+        /* 4. KIEMELT PULZÁLÓ KERETEK */
+        .pulsing-box {
+            /* A How To Buy és az About kiemelt doboza */
+            animation: pulseGlow 5s ease-in-out infinite; 
+            box-shadow: 0 0 15px rgba(80, 227, 194, 0.5); /* Alap árnyék */
+        }
+
+        /* SLIDESHOW STÍLUSOK */
+        .slide-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            overflow: hidden;
+            border: 2px solid #50E3C2; 
+            border-radius: 1rem;
+            aspect-ratio: 16 / 9; /* Képarány a mobil nézetben, hogy ne ugráljon az oldal */
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+
         /* Dexscreener embed style (a többi változatlan) */
         #dexscreener-embed {
             position: relative;
@@ -140,11 +186,14 @@
             #dexscreener-embed {
                 padding-bottom: 150%;
             }
+            .spin-logo-container {
+                width: 192px; /* w-48 */
+                height: 192px; /* h-48 */
+            }
         }
     </style>
 </head>
 
-<!-- INLINE STYLE a 100% fekete háttér biztosításához -->
 <body class="bg-deep-dark text-white font-sans min-h-screen" style="background-color: #000000 !important;">
 
     <!-- CA Copy Feedback Message -->
@@ -153,17 +202,15 @@
     </div>
 
     <!-- Navigation Bar (Header) -->
-    <nav class="sticky top-0 z-40 bg-deep-dark shadow-xl shadow-neon-green/10 border-b-2 border-neon-green/70">
+    <nav class="sticky top-0 z-40 bg-deep-dark shadow-2xl shadow-neon-green/30 border-b-2 border-neon-green/70">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 
-                <!-- Left Side: Logo and Ticker (Frissített betűtípus és szöveg) -->
+                <!-- Left Side: Logo and Ticker -->
                 <div class="flex items-center space-x-4">
                     <img src="https://pbs.twimg.com/profile_images/1972993563064492032/nm0o8Mz6_400x400.jpg" alt="USDP Logo" class="h-10 w-10 rounded-full object-cover shadow-lg shadow-neon-green/30">
-                    <!-- Ticker és a teljes leírás, Orbitron betűtípussal -->
                     <div class="flex items-baseline space-x-2">
                         <span class="text-3xl font-extrabold text-neon-green tracking-wider font-futuristic">$USDP</span>
-                        <!-- Frissített stílus: vastagabb, nagyobb, fehér színű -->
                         <span class="hidden sm:inline text-lg font-bold text-white tracking-tight ml-3">FIRST STABLECOIN ON PUMP</span>
                     </div>
                 </div>
@@ -173,20 +220,22 @@
 
                     <!-- Navigation Links -->
                     <div class="hidden md:flex space-x-4">
-                        <a href="#hero" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">Home</a>
-                        <a href="#about" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">About</a>
-                        <a href="#buy" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">How to Buy</a>
-                        <a href="#chart" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg">Chart</a>
+                        <a href="#hero" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Home</a>
+                        <a href="#about" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">About</a>
+                        <!-- ÚJ LINK -->
+                        <a href="#memes" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Memes</a>
+                        <a href="#buy" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">How to Buy</a>
+                        <a href="#chart" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Chart</a>
                     </div>
 
-                    <!-- CA Box (Háttér: gray-950, kiemelés neon zölddel) -->
-                    <div id="ca-box" class="flex items-center bg-gray-950 p-2 rounded-xl cursor-pointer border border-neon-green/50 hover:bg-neon-green/20 transition duration-200 shadow-md shadow-neon-green/30" title="Click to Copy">
+                    <!-- CA Box (Most már pulzáló árnyék is van) -->
+                    <div id="ca-box" class="flex items-center bg-gray-950 p-2 rounded-xl cursor-pointer border border-neon-green/50 hover:bg-neon-green/20 transition duration-200 shadow-md shadow-neon-green/30 pulsing-box" title="Click to Copy">
                         <span class="text-sm font-semibold text-neon-green mr-2 hidden sm:inline">CA:</span>
                         <span id="ca-address" class="text-sm font-mono text-white truncate max-w-[150px]">8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG</span>
                         <i class="fas fa-copy text-neon-green ml-2 text-xs"></i>
                     </div>
 
-                    <!-- X.com link -->
+                    <!-- X.com link (Hozzáadva hover shadow) -->
                     <a href="https://x.com/USDPpump" target="_blank" rel="noopener noreferrer" class="text-white hover:text-neon-green transition duration-200">
                         <i class="fab fa-x-twitter text-3xl hover:shadow-xl hover:shadow-neon-green/40 rounded-full"></i>
                     </a>
@@ -200,7 +249,6 @@
         <!-- Hero Section -->
         <section id="hero" class="text-center py-16 sm:py-20 lg:py-24">
             
-            <!-- A logó konténerén megemeltem az alsó margót: mb-12 -->
             <div class="flex flex-col items-center justify-center mb-12">
                 <!-- LOGO KONTÉNER AZ ÚJ PULZÁLÓ ÉS NYOMVONAL EFFEKTUSOKHOZ -->
                 <div class="spin-logo-container w-48 h-48 sm:w-64 sm:h-64 mb-2">
@@ -209,21 +257,21 @@
                 </div>
             </div>
             
-            <!-- Main Image -->
-            <div class="mt-4 rounded-3xl overflow-hidden shadow-2xl shadow-neon-green/40 border-2 border-neon-green/50">
+            <!-- Main Image (Pulzáló keret a képen is) -->
+            <div class="mt-4 rounded-3xl overflow-hidden shadow-2xl shadow-neon-green/40 border-2 border-neon-green/50 pulsing-box">
                 <img src="https://pbs.twimg.com/media/G2FmG_OXoAAWCZJ?format=jpg&name=large" alt="USDP Banner Image" class="w-full h-auto object-cover">
             </div>
         </section>
 
         <!-- About Section -->
         <section id="about" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">About: The OG Pump Stablecoin</h2>
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">About: The OG Pump Stablecoin</h2>
             <div class="max-w-4xl mx-auto text-center space-y-6 text-lg">
                 <p class="text-gray-300">
                     USDP is the first stablecoin launched on the <strong class="text-neon-green drop-shadow-sm shadow-neon-green">Pump.fun</strong> platform, a pioneering attempt to combine stability with meme culture on the Solana blockchain.
                 </p>
-                <!-- Kiemelt doboz háttér: gray-950 -->
-                <p class="text-xl font-bold text-white p-4 bg-gray-950 rounded-xl shadow-inner shadow-neon-green/50 border border-neon-green/30">
+                <!-- Kiemelt doboz - hozzáadva a pulsing-box class -->
+                <p class="text-xl font-bold text-white p-4 bg-gray-950 rounded-xl shadow-inner shadow-neon-green/50 border border-neon-green/30 pulsing-box">
                     USDP is the OG pumpfun stablecoin.
                     <br>
                     <span class="block mt-2 text-sm font-light text-neon-green drop-shadow-sm shadow-neon-green">544 days old. clean ticker. pump meta. stablecoin meta.</span>
@@ -234,31 +282,57 @@
             </div>
         </section>
 
+        <!-- ÚJ: MEMES SLIDESHOW SECTION -->
+        <section id="memes" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">USDP Meme Vault</h2>
+            
+            <div class="slide-container pulsing-box max-w-5xl mx-auto shadow-2xl shadow-neon-green/40">
+                <!-- Képek konténere -->
+                <div id="slideshow-images" class="relative w-full h-full bg-gray-950">
+                    <!-- A képeket JS tölti be ide -->
+                </div>
+
+                <!-- Navigációs gombok -->
+                <button onclick="changeSlide(-1)" aria-label="Előző kép" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-neon-green/30 hover:bg-neon-green/60 text-white p-4 rounded-r-xl transition duration-300 z-10 opacity-75 hover:opacity-100 shadow-xl shadow-black/50">
+                    <i class="fas fa-chevron-left text-2xl"></i>
+                </button>
+                <button onclick="changeSlide(1)" aria-label="Következő kép" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-neon-green/30 hover:bg-neon-green/60 text-white p-4 rounded-l-xl transition duration-300 z-10 opacity-75 hover:opacity-100 shadow-xl shadow-black/50">
+                    <i class="fas fa-chevron-right text-2xl"></i>
+                </button>
+
+                <!-- Kép számláló -->
+                <div id="slide-index-display" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-deep-dark/70 text-neon-green px-4 py-1 rounded-full text-sm font-futuristic shadow-lg border border-neon-green/50">
+                    1 / 8
+                </div>
+            </div>
+        </section>
+        <!-- MEMES SLIDESHOW SECTION VÉGE -->
+
         <!-- How to Buy Section -->
         <section id="buy" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">How to Buy $USDP?</h2>
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">How to Buy $USDP?</h2>
             <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 
-                <!-- Step 1 (Háttér: gray-950, neon zöld kiemelés) -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">1</span>
+                <!-- Step 1 - hozzáadva a pulsing-box class -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">1</span>
                     <h3 class="text-2xl font-semibold mb-3 text-white">Get a Solana Wallet</h3>
                     <p class="text-gray-400">Download and set up a Phantom or Solflare wallet. These support the Solana network.</p>
                 </div>
 
-                <!-- Step 2 (Háttér: gray-950, neon zöld kiemelés) -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">2</span>
+                <!-- Step 2 - hozzáadva a pulsing-box class -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">2</span>
                     <h3 class="text-2xl font-semibold mb-3 text-white">Buy SOL</h3>
                     <p class="text-gray-400">Fund your wallet with SOL (Solana) by purchasing it on a centralized exchange (e.g., Binance, Kraken).</p>
                 </div>
 
-                <!-- Step 3 (Háttér: gray-950, neon zöld kiemelés) -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green">3</span>
+                <!-- Step 3 - hozzáadva a pulsing-box class -->
+                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
+                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">3</span>
                     <h3 class="text-2xl font-semibold mb-3 text-white">Swap for $USDP</h3>
                     <p class="text-gray-400">Navigate to a Solana DEX (e.g., Raydium, Jupiter) and swap your SOL for $USDP using the Contract Address (CA).</p>
-                    <button onclick="copyCA('8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG')" class="mt-4 w-full bg-neon-green text-deep-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-neon-green/50 hover:shadow-neon-green/80">
+                    <button onclick="copyCA('8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG')" class="mt-4 w-full bg-neon-green text-deep-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-neon-green/50 hover:shadow-neon-green/80 hover:translate-y-[-2px] hover:shadow-2xl">
                         Copy CA
                     </button>
                 </div>
@@ -267,15 +341,16 @@
 
         <!-- Chart Section -->
         <section id="chart" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green">Dexscreener Chart</h2>
-            <div id="dexscreener-embed" class="shadow-2xl shadow-neon-green/50 rounded-2xl overflow-hidden border border-neon-green/50">
+            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">Dexscreener Chart</h2>
+            <!-- Pulzáló keret a charton is -->
+            <div id="dexscreener-embed" class="shadow-2xl shadow-neon-green/50 rounded-2xl overflow-hidden border border-neon-green/50 pulsing-box">
                 <iframe src="https://dexscreener.com/solana/B71cRkgnCSvST1VaX2YTeySqjdE1viAPLV8wzJRUMvds?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"></iframe>
             </div>
         </section>
         
         <!-- Footer (Neon Zöld vonal) -->
-        <footer class="text-center py-8 mt-10 border-t border-neon-green/50 text-gray-400 text-sm">
-            &copy; 2025 USDP - First stable coin on Pump. All rights reserved.
+        <footer class="text-center py-8 mt-10 border-t-2 border-neon-green/70 text-gray-400 text-sm">
+            &copy; 2025 USDP - First stable coin on Pump. All rights reserved. <span class="text-neon-green drop-shadow-sm shadow-neon-green font-futuristic ml-2">// DECENTRALIZED FUTURES ONLINE</span>
         </footer>
 
     </main>
@@ -291,6 +366,7 @@
          * @param {string} text The text to be copied to the clipboard.
          */
         function copyCA(text) {
+            // Using navigator.clipboard.writeText is the preferred method
             navigator.clipboard.writeText(text).then(() => {
                 // Show feedback
                 copyMessage.textContent = 'CA Copied to Clipboard!';
@@ -324,8 +400,8 @@
                         copyMessage.textContent = 'CA Copied to Clipboard!'; // Restore original message
                     }, 3000);
                 } catch (err) {
-                    console.error('Copy failed with fallback as well.', err);
-                    // Handle error gracefully (e.g., using a custom modal)
+                    // Using custom modal instead of alert()
+                    console.error('Copy failed with fallback as well. Please copy manually:', err);
                 }
             });
         }
@@ -347,6 +423,94 @@
                 });
             });
         });
+
+        /* --- SLIDESHOW LOGIC --- */
+        const memeImages = [
+            "https://pbs.twimg.com/media/G2KxUNZW0AAPzij?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2Fuw_4WYAAhyj_?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2Kbuk9aIAAUj57?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2KaVT6aIAE7pfg?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2KZgKIXwAASMhS?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2KQv4_XEAA7mMZ?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2KPvvZaIAEI6XY?format=jpg&name=small",
+            "https://pbs.twimg.com/media/G2JNSgaXsAAFtem?format=jpg&name=small"
+        ];
+
+        let currentSlideIndex = 0;
+
+        /**
+         * Dynamically loads the image slides into the DOM.
+         */
+        function loadSlides() {
+            const slideshowContainer = document.getElementById('slideshow-images');
+            memeImages.forEach((src, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide';
+                slideDiv.id = `slide-${index}`;
+                
+                const img = document.createElement('img');
+                img.src = src;
+                img.alt = `USDP Meme ${index + 1}`;
+                img.className = 'w-full h-full object-contain p-2 rounded-2xl'; // object-contain, hogy ne vágja le
+                
+                slideDiv.appendChild(img);
+                slideshowContainer.appendChild(slideDiv);
+            });
+            showSlide(0); // Show the first slide
+        }
+
+        /**
+         * Changes the displayed slide based on the offset.
+         * @param {number} n The direction to move (1 for next, -1 for previous).
+         */
+        function changeSlide(n) {
+            currentSlideIndex += n;
+            if (currentSlideIndex >= memeImages.length) {
+                currentSlideIndex = 0;
+            }
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = memeImages.length - 1;
+            }
+            showSlide(currentSlideIndex);
+        }
+
+        /**
+         * Sets the visibility of the slides.
+         * @param {number} n The index of the slide to display.
+         */
+        function showSlide(n) {
+            const slides = document.querySelectorAll('.slide');
+            const indexDisplay = document.getElementById('slide-index-display');
+
+            if (slides.length === 0) return;
+
+            // Deactivate all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+
+            // Activate the current slide
+            slides[n].classList.add('active');
+            
+            // Update index display
+            indexDisplay.textContent = `${n + 1} / ${memeImages.length}`;
+        }
+        
+        // Expose functions globally for HTML onClick
+        window.changeSlide = changeSlide;
+
+        // Load slides when the window is ready
+        window.onload = function () {
+            loadSlides();
+            // Start the smooth scrolling listener after DOM is ready
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        }
+        /* --- SLIDESHOW LOGIC VÉGE --- */
     </script>
 </body>
 </html>
