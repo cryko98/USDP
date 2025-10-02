@@ -100,7 +100,7 @@
                 <a href="#chart" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">Chart</a>
                 <a href="#how-to-buy" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">How To Buy</a>
                 <a href="#memes" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">Memes</a>
-                <!-- Buy Button - Sketchy Style - CHANGED $PL to $PUMPLIFE -->
+                <!-- Buy Button - Sketchy Style - Ticker: $PUMPLIFE -->
                 <button class="bg-crypto-green text-black font-bangers text-xl px-4 py-1 rounded-md shadow-sketch" onclick="alert('This is where the exchange link goes!')">
                     BUY $PUMPLIFE NOW!
                 </button>
@@ -134,7 +134,7 @@
         <!-- 1. Hero Section (Ticker, Logo, Banner) -->
         <section id="hero" class="custom-container mx-auto px-4 py-12 text-center relative overflow-hidden">
             
-            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES -->
+            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES, AWAY FROM CENTER CONTENT -->
             <!-- Left Side (Char 1) -->
             <img src="pl2.png" alt="Floating Character 1" class="hidden md:block floating-character w-40 h-auto top-20 left-0 -translate-x-1/2" style="animation-delay: 0s;">
             <!-- Right Side (Char 2) -->
@@ -162,7 +162,7 @@
         <!-- 2. About Section -->
         <section id="about" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
             
-            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES -->
+            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES, AWAY FROM CENTER CONTENT -->
             <!-- Left Side (Char 5) -->
             <img src="pl3.png" alt="Floating Character 5" class="hidden md:block floating-character w-56 h-auto top-0 left-0 -translate-x-1/2" style="animation-delay: 0.5s; transform: rotate(3deg);">
             <!-- Right Side (Char 6) -->
@@ -207,13 +207,13 @@
         <!-- 3. HOW TO BUY Section (Solana Style) -->
         <section id="how-to-buy" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
             
-            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES -->
+            <!-- FLOATING CHARACTERS (2X) - PUSHED TO THE EXTREME SIDES, AWAY FROM CENTER CONTENT -->
             <!-- Left Side (New Char 9 position) -->
             <img src="pl3.png" alt="Floating Character 9" class="hidden md:block floating-character w-32 h-auto bottom-10 left-0 -translate-x-1/2" style="animation-delay: 0.8s;">
             <!-- Right Side (Char 8) -->
             <img src="pl0.png" alt="Floating Character 8" class="hidden md:block floating-character w-44 h-auto top-40 right-0 translate-x-1/2" style="animation-delay: 3.5s; transform: rotate(8deg);">
 
-            <!-- ADDED text-shadow-sketch for readability - CHANGED $PL to $PUMPLIFE -->
+            <!-- ADDED text-shadow-sketch for readability - Ticker: $PUMPLIFE -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
                 HOW TO PUMP $PUMPLIFE (Solana Style)
             </h2>
@@ -240,7 +240,7 @@
                     <p class="text-gray-400 mt-2">Click the button above to copy the **$PUMPLIFE** Contract Address (CA). Don't mess this up.</p>
                 </div>
 
-                <!-- Step 4 - CHANGED $PL to $PUMPLIFE -->
+                <!-- Step 4 - Ticker: $PUMPLIFE -->
                 <div class="p-6 rounded-xl border-sketch content-box-dark">
                     <span class="text-5xl font-bangers text-crypto-green">4.</span>
                     <h3 class="text-3xl font-bangers text-white mt-2">SWAP FOR GLORY!</h3>
@@ -341,12 +341,13 @@
 
             // --- 2. Slideshow Function (Memes) ---
             const carousel = document.getElementById('meme-carousel');
-            // Placeholder images adjusted to the new green theme (#20c294)
+            // Frissített képek a helyi fájlokra.
             const memeImages = [
-                "https://placehold.co/800x600/20c294/1a1a1a?text=MEME+1\n(PUMP+IT!)",
-                "https://placehold.co/800x600/1e293b/20c294?text=MEME+2\n(TUG+LIFE+REACTION)",
-                "https://placehold.co/800x600/20c294/f0f0f0?text=MEME+3\n(COMMUNITY+STRONG)",
-                "https://placehold.co/800x600/1a1a1a/20c294?text=MEME+4\n(DIAMOND+HANDS)",
+                "meme1.jpg",
+                "meme2.jpg",
+                "meme3.png",
+                "meme4.png",
+                "meme5.png",
             ];
             let currentMemeIndex = 0;
 
