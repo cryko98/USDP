@@ -61,7 +61,7 @@
         .custom-container { max-width: 1200px; }
         html { scroll-padding-top: 5rem; }
 
-        /* === NEW: FLOATING CHARACTER ANIMATION === */
+        /* === FLOATING CHARACTER ANIMATION === */
         @keyframes float {
             0% { transform: translateY(0px) rotate(1deg); }
             50% { transform: translateY(-15px) rotate(-1deg); }
@@ -82,11 +82,11 @@
     <header class="sticky top-0 z-20 bg-black/90 backdrop-blur-sm p-4 border-b-4 border-crypto-green shadow-sketch">
         <div class="custom-container mx-auto flex justify-between items-center">
             
-            <!-- Ticker and Logo (Updated with inline logo) -->
+            <!-- Ticker and Logo (Updated with inline logo and increased size) -->
             <div class="flex items-center space-x-4">
                 <a href="#hero" class="flex items-center space-x-2">
-                    <!-- Logo in Header -->
-                    <img src="pl1.png" alt="PumpLife Small Logo" class="w-8 h-8 rounded-full"> 
+                    <!-- Logo in Header (Increased size: w-10 h-10) -->
+                    <img src="pl1.png" alt="PumpLife Small Logo" class="w-10 h-10 rounded-full"> 
                     <!-- Project Ticker -->
                     <span class="text-4xl font-bangers text-crypto-green tracking-widest hover:text-white transition duration-300 text-shadow-sketch">
                         $PUMPLIFE
@@ -133,11 +133,15 @@
         <!-- 1. Hero Section (Ticker, Logo, Banner) -->
         <section id="hero" class="custom-container mx-auto px-4 py-12 text-center relative overflow-hidden">
             
-            <!-- FLOATING CHARACTER 1: pl2.png - Top Left -->
+            <!-- FLOATING CHARACTERS (4X) -->
             <img src="pl2.png" alt="Floating Character 1" class="hidden md:block floating-character w-40 h-auto top-20 left-0 -translate-x-1/4" style="animation-delay: 0s;">
+            <img src="pl3.png" alt="Floating Character 2" class="hidden md:block floating-character w-32 h-auto top-10 right-1/4" style="animation-delay: 2s; transform: rotate(5deg);">
+            <!-- CHANGED pl1.png to pl0.png -->
+            <img src="pl0.png" alt="Floating Character 3" class="hidden md:block floating-character w-24 h-auto bottom-0 left-10" style="animation-delay: 1s;">
+            <img src="pl2.png" alt="Floating Character 4" class="hidden md:block floating-character w-64 h-auto top-1/4 right-0 -translate-y-1/4" style="animation-delay: 3s; transform: rotate(-8deg);">
 
             <div class="flex flex-col items-center justify-center mb-10">
-                <!-- Logo Placeholder - Sketchy Look (Large and borderless) -->
+                <!-- Logo Placeholder - Sketchy Look (Large and borderless) - REMAINS pl1.png -->
                 <img src="pl1.png" alt="PumpLife Logo" class="w-64 h-64 rounded-full mb-4">
                 
                 <!-- Main Ticker -->
@@ -158,8 +162,11 @@
         <!-- 2. About Section -->
         <section id="about" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
             
-            <!-- FLOATING CHARACTER 2: pl3.png - Bottom Right -->
-            <img src="pl3.png" alt="Floating Character 2" class="hidden md:block floating-character w-32 h-auto bottom-0 right-0 translate-x-1/4" style="animation-delay: 1.5s; transform: rotate(5deg);">
+            <!-- FLOATING CHARACTERS (3X) -->
+            <img src="pl3.png" alt="Floating Character 5" class="hidden md:block floating-character w-56 h-auto top-0 left-1/4" style="animation-delay: 0.5s; transform: rotate(3deg);">
+            <!-- CHANGED pl1.png to pl0.png -->
+            <img src="pl0.png" alt="Floating Character 6" class="hidden md:block floating-character w-36 h-auto bottom-20 right-0" style="animation-delay: 2.5s; transform: rotate(-5deg);">
+            <img src="pl2.png" alt="Floating Character 7" class="hidden md:block floating-character w-28 h-auto top-1/2 left-0" style="animation-delay: 1.5s;">
 
             <!-- ADDED text-shadow-sketch for readability -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
@@ -178,8 +185,11 @@
         <!-- 3. HOW TO BUY Section (Solana Style) -->
         <section id="how-to-buy" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
             
-            <!-- FLOATING CHARACTER 3: pl1.png - Mid Left (Subtle) -->
-            <img src="pl1.png" alt="Floating Character 3" class="hidden md:block floating-character w-24 h-auto top-10 left-1/4" style="animation-delay: 3s; transform: rotate(-3deg);">
+            <!-- FLOATING CHARACTERS (3X) -->
+            <!-- CHANGED pl1.png to pl0.png -->
+            <img src="pl0.png" alt="Floating Character 8" class="hidden md:block floating-character w-44 h-auto top-40 right-10" style="animation-delay: 3.5s; transform: rotate(8deg);">
+            <img src="pl3.png" alt="Floating Character 9" class="hidden md:block floating-character w-32 h-auto bottom-10 left-10" style="animation-delay: 0.8s;">
+            <img src="pl2.png" alt="Floating Character 10" class="hidden md:block floating-character w-52 h-auto top-10 left-0" style="animation-delay: 1.8s; transform: rotate(-3deg);">
 
             <!-- ADDED text-shadow-sketch for readability -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
@@ -220,7 +230,13 @@
 
 
         <!-- 4. Memes Section (Slideshow) -->
-        <section id="memes" class="custom-container mx-auto px-4 py-16">
+        <section id="memes" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
+            
+            <!-- FLOATING CHARACTERS (2X) -->
+            <img src="pl3.png" alt="Floating Character 11" class="hidden md:block floating-character w-48 h-auto top-1/2 left-1/4" style="animation-delay: 2.8s; transform: rotate(-5deg);">
+            <!-- CHANGED pl1.png to pl0.png -->
+            <img src="pl0.png" alt="Floating Character 12" class="hidden md:block floating-character w-60 h-auto bottom-10 right-0" style="animation-delay: 4s;">
+
             <!-- ADDED text-shadow-sketch for readability -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
                 MEME MASTERPIECES (You supply the JPEGs!)
