@@ -11,7 +11,7 @@
     <style>
         /* Custom styles for the Black, White, and Crypto Green theme */
         :root {
-            --crypto-green: #00FF80; /* Neon Green Accent */
+            --crypto-green: #20c294; /* NEW Neon Green Accent */
             --light-bg: #d0e6dc; /* User specified light background */
             --dark-text: #1a1a1a; /* Dark text for contrast on light background */
             --dark-element-bg: #1e293b; /* Dark slate background for contrast boxes */
@@ -67,12 +67,15 @@
     <header class="sticky top-0 z-20 bg-black/90 backdrop-blur-sm p-4 border-b-4 border-crypto-green shadow-sketch">
         <div class="custom-container mx-auto flex justify-between items-center">
             
-            <!-- Ticker and Logo -->
-            <div class="flex items-center space-x-6">
-                <!-- Project Ticker -->
-                <!-- ADDED text-shadow-sketch for readability -->
-                <a href="pl1.png" class="text-4xl font-bangers text-crypto-green tracking-widest hover:text-white transition duration-300 text-shadow-sketch">
-                    $PUMPLIFE
+            <!-- Ticker and Logo (Updated with inline logo) -->
+            <div class="flex items-center space-x-4">
+                <a href="#hero" class="flex items-center space-x-2">
+                    <!-- Logo in Header -->
+                    <img src="pl1.png" alt="PumpLife Small Logo" class="w-8 h-8 rounded-full"> 
+                    <!-- Project Ticker -->
+                    <span class="text-4xl font-bangers text-crypto-green tracking-widest hover:text-white transition duration-300 text-shadow-sketch">
+                        $PUMPLIFE
+                    </span>
                 </a>
             </div>
 
@@ -116,7 +119,7 @@
         <section id="hero" class="custom-container mx-auto px-4 py-12 text-center">
             
             <div class="flex flex-col items-center justify-center mb-10">
-                <!-- Logo Placeholder - Sketchy Look (Now larger and borderless) -->
+                <!-- Logo Placeholder - Sketchy Look (Large and borderless) -->
                 <img src="pl1.png" alt="PumpLife Logo" class="w-64 h-64 rounded-full mb-4">
                 
                 <!-- Main Ticker -->
@@ -277,12 +280,12 @@
 
             // --- 2. Slideshow Function (Memes) ---
             const carousel = document.getElementById('meme-carousel');
-            // Placeholder images adjusted to the green theme
+            // Placeholder images adjusted to the new green theme (#20c294)
             const memeImages = [
-                "https://placehold.co/800x600/00FF80/1a1a1a?text=MEME+1\n(PUMP+IT!)",
-                "https://placehold.co/800x600/1e293b/00FF80?text=MEME+2\n(TUG+LIFE+REACTION)",
-                "https://placehold.co/800x600/00CC00/f0f0f0?text=MEME+3\n(COMMUNITY+STRONG)",
-                "https://placehold.co/800x600/1a1a1a/00FF80?text=MEME+4\n(DIAMOND+HANDS)",
+                "https://placehold.co/800x600/20c294/1a1a1a?text=MEME+1\n(PUMP+IT!)",
+                "https://placehold.co/800x600/1e293b/20c294?text=MEME+2\n(TUG+LIFE+REACTION)",
+                "https://placehold.co/800x600/20c294/f0f0f0?text=MEME+3\n(COMMUNITY+STRONG)",
+                "https://placehold.co/800x600/1a1a1a/20c294?text=MEME+4\n(DIAMOND+HANDS)",
             ];
             let currentMemeIndex = 0;
 
