@@ -3,514 +3,328 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USDP - First Stablecoin on Pump</title>
-    <!-- Tailwind CSS CDN -->
+    <title>PumpLife MemeCoin - The TugLife Meme Version</title>
+    <!-- Tailwind CSS for modern styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for external icons (e.g., X.com) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Google Font for futuristic header (Orbitron) and main text (Inter) -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    
+    <!-- Meme-friendly, sketch-style fonts: Bangers for titles, Permanent Marker for body -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Permanent+Marker&display=swap" rel="stylesheet">
     <style>
-        /* Custom Tailwind configuration */
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'neon-green': '#50E3C2', /* Bright green color from the image */
-                        'deep-dark': '#000000', /* Set to pure black */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        'futuristic': ['Orbitron', 'sans-serif'], 
-                    }
-                }
-            }
+        /* Custom styles for the Black, White, and Crypto Green theme */
+        :root {
+            --crypto-green: #00FF80; /* Neon Green Accent */
+            --light-bg: #d0e6dc; /* User specified light background */
+            --dark-text: #1a1a1a; /* Dark text for contrast on light background */
+            --dark-element-bg: #1e293b; /* Dark slate background for contrast boxes */
         }
-    </style>
-    <style>
-        /* ÚJ: HÁTTÉR MÁTRIX/GRID ANIMÁCIÓ */
-        @keyframes matrixPulse {
-            0% { transform: scale(1); opacity: 0.05; }
-            50% { transform: scale(1.05); opacity: 0.15; }
-            100% { transform: scale(1); opacity: 0.05; }
-        }
-
-        /* ÚJ: CSILLOGÓ ZAJ ANIMÁCIÓ (Háttér elmozdulás és pulzálás) */
-        @keyframes sparkleNoise {
-            0% { background-position: 0 0; opacity: 0.2; }
-            50% { opacity: 0.05; }
-            100% { background-position: -500px -500px; opacity: 0.2; }
-        }
-
-        /* LÉGZŐ ÁRNYÉK ANIMÁCIÓ (Kiemelt Pulzálás) */
-        @keyframes pulseGlow {
-            0%, 100% { 
-                box-shadow: 0 0 10px #50E3C2, 0 0 20px #50E3C2, 0 0 40px rgba(80, 227, 194, 0.4); 
-            }
-            50% { 
-                box-shadow: 0 0 20px #50E3C2, 0 0 40px #50E3C2, 0 0 60px rgba(80, 227, 194, 0.6); 
-            }
-        }
-
-        /* LEBEGŐ (FLOATING) ANIMÁCIÓ */
-        @keyframes hoverFloat {
-            0% { transform: translateY(0) rotate(0); }
-            50% { transform: translateY(-8px) rotate(1deg); } 
-            100% { transform: translateY(0) rotate(0); }
-        }
-        
-        /* NYOMVONAL/GLITCH ANIMÁCIÓ */
-        @keyframes trailGlow {
-            0% { transform: rotate(0deg); opacity: 0.5; }
-            100% { transform: rotate(360deg); opacity: 0.8; }
-        }
-
-        /* **FŐ ANIMÁCIÓS STÍLUSOK ALKALMAZÁSA** */
-        
         body {
-            position: relative;
-            overflow-x: hidden; /* Megelőzi a horizontális scrollbart az abszolút elemek miatt */
+            font-family: 'Permanent Marker', cursive; /* Hand-drawn body text */
+            background-color: var(--light-bg); /* New background color */
+            color: var(--dark-text); /* Main body text is now dark */
         }
-
-        /* 1. FUTURISZTIKUS HÁTTÉR (GRID - LEGALUL) */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* A GRID vonalak - Átlászóság 0.05-ről 0.1-re emelve a jobb neonzöld láthatóság érdekében */
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 49px, rgba(80, 227, 194, 0.1) 50px),
-                repeating-linear-gradient(90deg, transparent, transparent 49px, rgba(80, 227, 194, 0.1) 50px);
-            background-size: 50px 50px;
-            z-index: -2; /* Minden alatt legyen */
-            animation: matrixPulse 10s ease-in-out infinite;
-            pointer-events: none;
+        /* Style for high-impact headings */
+        .font-bangers {
+            font-family: 'Bangers', cursive; 
         }
-
-        /* 2. HÁTTÉR ZAJ/CSILLOGÁS RÉTEG (NOISE/SPARKLE - A GRID FELETT) */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Egy apró pontokból álló "star field" minta létrehozása */
-            background-image: radial-gradient(circle, rgba(80, 227, 194, 0.5) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1; /* A grid felett, de a tartalom alatt */
-            animation: sparkleNoise 25s linear infinite; /* Lassú, folyamatos elmozdulás és pulzálás */
-            pointer-events: none; /* Ne akadályozza az egérkattintásokat */
-        }
-
-
-        /* 3. LOGÓ ANIMÁCIÓK */
-        .spin-logo-container {
-            position: relative;
-            width: 256px; 
-            height: 256px; 
-            animation: pulseGlow 3s ease-in-out infinite, hoverFloat 3s ease-in-out infinite; 
-            border-radius: 9999px; 
+        /* Primary color classes */
+        .text-crypto-green { color: var(--crypto-green); }
+        .bg-crypto-green { background-color: var(--crypto-green); }
+        
+        /* === NEW: TEXT SHADOW FOR READABILITY ON LIGHT BG === */
+        .text-shadow-sketch {
+            text-shadow: 3px 3px 0 #000; 
         }
         
-        .spin-logo {
-            border: 4px solid #50E3C2; 
+        /* Sketchy/Drawn Border and Shadow Effect (CRITICAL for the meme look) */
+        .shadow-sketch {
+            /* Black outline to mimic marker pen */
+            box-shadow: 
+                3px 3px 0 #000, 
+                -3px -3px 0 #000, 
+                6px 6px 0 #000;
+            border-color: var(--crypto-green);
+        }
+        .border-sketch {
+            border: 4px solid #000;
+            box-shadow: 5px 5px 0 var(--crypto-green); /* Green outline shadow on light boxes */
+            transition: all 0.2s ease-in-out;
+        }
+        .border-sketch:hover {
+             box-shadow: 8px 8px 0 var(--crypto-green);
+        }
+        /* Dark background for internal content boxes, ensures white text is readable */
+        .content-box-dark {
+            background-color: var(--dark-element-bg);
+            color: #f0f0f0; /* White text inside dark boxes */
         }
 
-        .spin-logo-container::after {
-            /* A nyomvonal effektus */
-            animation: trailGlow 10s linear infinite, pulseGlow 3s linear infinite reverse; /* Lassú, folyamatos forgás */
-        }
-
-        /* 4. KIEMELT PULZÁLÓ KERETEK */
-        .pulsing-box {
-            /* A How To Buy és az About kiemelt doboza */
-            animation: pulseGlow 5s ease-in-out infinite; 
-            box-shadow: 0 0 15px rgba(80, 227, 194, 0.5); /* Alap árnyék */
-        }
-
-        /* SLIDESHOW STÍLUSOK */
-        .slide-container {
-            position: relative;
-            max-width: 800px;
-            margin: auto;
-            overflow: hidden;
-            border: 2px solid #50E3C2; 
-            border-radius: 1rem;
-            aspect-ratio: 16 / 9; /* Képarány a mobil nézetben, hogy ne ugráljon az oldal */
-        }
-
-        .slide {
-            display: none;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .slide.active {
-            display: block;
-            opacity: 1;
-        }
-
-        /* Dexscreener embed style (a többi változatlan) */
-        #dexscreener-embed {
-            position: relative;
-            width: 100%;
-            padding-bottom: 125%; 
-        }
-        @media(min-width: 1400px){
-            #dexscreener-embed {
-                padding-bottom: 65%;
-            }
-        }
-        #dexscreener-embed iframe {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            border: 0;
-            border-radius: 1rem;
-        }
-        @media (max-width: 768px) {
-            #dexscreener-embed {
-                padding-bottom: 150%;
-            }
-            .spin-logo-container {
-                width: 192px; /* w-48 */
-                height: 192px; /* h-48 */
-            }
-        }
+        .custom-container { max-width: 1200px; }
+        html { scroll-padding-top: 5rem; }
     </style>
 </head>
+<body>
 
-<body class="bg-deep-dark text-white font-sans min-h-screen" style="background-color: #000000 !important;">
-
-    <!-- CA Copy Feedback Message -->
-    <div id="copy-message" class="fixed top-5 right-5 z-50 p-3 bg-neon-green text-deep-dark rounded-xl shadow-lg transition-opacity duration-300 opacity-0 transform translate-x-10" role="alert">
-        CA Copied to Clipboard!
-    </div>
-
-    <!-- Navigation Bar (Header) -->
-    <nav class="sticky top-0 z-40 bg-deep-dark shadow-2xl shadow-neon-green/30 border-b-2 border-neon-green/70">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                
-                <!-- Left Side: Logo and Ticker -->
-                <div class="flex items-center space-x-4">
-                    <img src="https://pbs.twimg.com/profile_images/1972993563064492032/nm0o8Mz6_400x400.jpg" alt="USDP Logo" class="h-10 w-10 rounded-full object-cover shadow-lg shadow-neon-green/30">
-                    <div class="flex items-baseline space-x-2">
-                        <span class="text-3xl font-extrabold text-neon-green tracking-wider font-futuristic">$USDP</span>
-                        <span class="hidden sm:inline text-lg font-bold text-white tracking-tight ml-3">FIRST STABLECOIN ON PUMP</span>
-                    </div>
-                </div>
-                
-                <!-- Right Side: CA, X.com, Navigation Links -->
-                <div class="flex items-center space-x-4 sm:space-x-6">
-
-                    <!-- Navigation Links -->
-                    <div class="hidden md:flex space-x-4">
-                        <a href="#hero" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Home</a>
-                        <a href="#about" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">About</a>
-                        <!-- ÚJ LINK -->
-                        <a href="#memes" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Memes</a>
-                        <a href="#buy" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">How to Buy</a>
-                        <a href="#chart" class="text-white hover:text-neon-green transition duration-200 p-2 rounded-lg hover:bg-neon-green/10">Chart</a>
-                    </div>
-
-                    <!-- CA Box (Most már pulzáló árnyék is van) -->
-                    <div id="ca-box" class="flex items-center bg-gray-950 p-2 rounded-xl cursor-pointer border border-neon-green/50 hover:bg-neon-green/20 transition duration-200 shadow-md shadow-neon-green/30 pulsing-box" title="Click to Copy">
-                        <span class="text-sm font-semibold text-neon-green mr-2 hidden sm:inline">CA:</span>
-                        <span id="ca-address" class="text-sm font-mono text-white truncate max-w-[150px]">8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG</span>
-                        <i class="fas fa-copy text-neon-green ml-2 text-xs"></i>
-                    </div>
-
-                    <!-- X.com link (Hozzáadva hover shadow) -->
-                    <a href="https://x.com/USDPpump" target="_blank" rel="noopener noreferrer" class="text-white hover:text-neon-green transition duration-200">
-                        <i class="fab fa-x-twitter text-3xl hover:shadow-xl hover:shadow-neon-green/40 rounded-full"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-
-        <!-- Hero Section -->
-        <section id="hero" class="text-center py-16 sm:py-20 lg:py-24">
+    <!-- Header (Navbar) - Fixed and Sketchy -->
+    <header class="sticky top-0 z-20 bg-black/90 backdrop-blur-sm p-4 border-b-4 border-crypto-green shadow-sketch">
+        <div class="custom-container mx-auto flex justify-between items-center">
             
-            <div class="flex flex-col items-center justify-center mb-12">
-                <!-- LOGO KONTÉNER AZ ÚJ PULZÁLÓ ÉS NYOMVONAL EFFEKTUSOKHOZ -->
-                <div class="spin-logo-container w-48 h-48 sm:w-64 sm:h-64 mb-2">
-                    <!-- 3D Lebegő Logó -->
-                    <img src="https://pbs.twimg.com/profile_images/1972993563064492032/nm0o8Mz6_400x400.jpg" alt="USDP Spinning Logo" class="spin-logo rounded-full object-cover shadow-2xl shadow-neon-green/70">
-                </div>
+            <!-- Ticker and Logo -->
+            <div class="flex items-center space-x-6">
+                <!-- Project Ticker -->
+                <!-- ADDED text-shadow-sketch for readability -->
+                <a href="pl1.png" class="text-4xl font-bangers text-crypto-green tracking-widest hover:text-white transition duration-300 text-shadow-sketch">
+                    $PUMPLIFE
+                </a>
             </div>
-            
-            <!-- Main Image (Pulzáló keret a képen is) -->
-            <div class="mt-4 rounded-3xl overflow-hidden shadow-2xl shadow-neon-green/40 border-2 border-neon-green/50 pulsing-box">
-                <img src="https://pbs.twimg.com/media/G2FmG_OXoAAWCZJ?format=jpg&name=large" alt="USDP Banner Image" class="w-full h-auto object-cover">
-            </div>
-        </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">About: The OG Pump Stablecoin</h2>
-            <div class="max-w-4xl mx-auto text-center space-y-6 text-lg">
-                <p class="text-gray-300">
-                    USDP is the first stablecoin launched on the <strong class="text-neon-green drop-shadow-sm shadow-neon-green">Pump.fun</strong> platform, a pioneering attempt to combine stability with meme culture on the Solana blockchain.
-                </p>
-                <!-- Kiemelt doboz - hozzáadva a pulsing-box class -->
-                <p class="text-xl font-bold text-white p-4 bg-gray-950 rounded-xl shadow-inner shadow-neon-green/50 border border-neon-green/30 pulsing-box">
-                    USDP is the OG pumpfun stablecoin.
-                    <br>
-                    <span class="block mt-2 text-sm font-light text-neon-green drop-shadow-sm shadow-neon-green">544 days old. clean ticker. pump meta. stablecoin meta.</span>
-                </p>
-                <p class="text-gray-300">
-                    Our goal is to bring a new dimension to decentralized finance (DeFi), where community spirit meets the reliability of financial assets. Join the Pump movement!
-                </p>
-            </div>
-        </section>
-
-        <!-- ÚJ: MEMES SLIDESHOW SECTION -->
-        <section id="memes" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">USDP Meme Vault</h2>
-            
-            <div class="slide-container pulsing-box max-w-5xl mx-auto shadow-2xl shadow-neon-green/40">
-                <!-- Képek konténere -->
-                <div id="slideshow-images" class="relative w-full h-full bg-gray-950">
-                    <!-- A képeket JS tölti be ide -->
-                </div>
-
-                <!-- Navigációs gombok -->
-                <button onclick="changeSlide(-1)" aria-label="Előző kép" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-neon-green/30 hover:bg-neon-green/60 text-white p-4 rounded-r-xl transition duration-300 z-10 opacity-75 hover:opacity-100 shadow-xl shadow-black/50">
-                    <i class="fas fa-chevron-left text-2xl"></i>
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">About</a>
+                <a href="#how-to-buy" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">How To Buy</a>
+                <a href="#memes" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">Memes</a>
+                <!-- Buy Button - Sketchy Style -->
+                <button class="bg-crypto-green text-black font-bangers text-xl px-4 py-1 rounded-md shadow-sketch" onclick="alert('This is where the exchange link goes!')">
+                    BUY $PL NOW!
                 </button>
-                <button onclick="changeSlide(1)" aria-label="Következő kép" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-neon-green/30 hover:bg-neon-green/60 text-white p-4 rounded-l-xl transition duration-300 z-10 opacity-75 hover:opacity-100 shadow-xl shadow-black/50">
-                    <i class="fas fa-chevron-right text-2xl"></i>
-                </button>
+            </nav>
 
-                <!-- Kép számláló -->
-                <div id="slide-index-display" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-deep-dark/70 text-neon-green px-4 py-1 rounded-full text-sm font-futuristic shadow-lg border border-neon-green/50">
-                    1 / 8
-                </div>
-            </div>
-        </section>
-        <!-- MEMES SLIDESHOW SECTION VÉGE -->
-
-        <!-- How to Buy Section -->
-        <section id="buy" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">How to Buy $USDP?</h2>
-            <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <!-- Social Media & Token Address -->
+            <div class="flex items-center space-x-4">
+                <!-- X.com (Twitter) Link -->
+                <a href="https://x.com/PumpLife_Meme" target="_blank" class="text-white hover:text-crypto-green transition duration-300" title="Follow us on X!">
+                    <!-- X.com SVG Logo -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path d="M18.901 1.153h3.68l-8.73 10.04L23.499 23H17.8l-6.84-7.56L5.053 23H1.365l8.13-9.36L.501 1h5.68L12 7.72z"/>
+                    </svg>
+                </a>
                 
-                <!-- Step 1 - hozzáadva a pulsing-box class -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">1</span>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Get a Solana Wallet</h3>
-                    <p class="text-gray-400">Download and set up a Phantom or Solflare wallet. These support the Solana network.</p>
-                </div>
-
-                <!-- Step 2 - hozzáadva a pulsing-box class -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">2</span>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Buy SOL</h3>
-                    <p class="text-gray-400">Fund your wallet with SOL (Solana) by purchasing it on a centralized exchange (e.g., Binance, Kraken).</p>
-                </div>
-
-                <!-- Step 3 - hozzáadva a pulsing-box class -->
-                <div class="bg-gray-950 p-8 rounded-2xl shadow-xl border-t-4 border-neon-green/80 transition transform hover:scale-[1.02] hover:shadow-neon-green/20 pulsing-box">
-                    <span class="text-6xl font-black text-neon-green block mb-4 drop-shadow-md shadow-neon-green font-futuristic">3</span>
-                    <h3 class="text-2xl font-semibold mb-3 text-white">Swap for $USDP</h3>
-                    <p class="text-gray-400">Navigate to a Solana DEX (e.g., Raydium, Jupiter) and swap your SOL for $USDP using the Contract Address (CA).</p>
-                    <button onclick="copyCA('8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG')" class="mt-4 w-full bg-neon-green text-deep-dark font-bold py-3 px-6 rounded-xl hover:bg-white transition duration-300 shadow-lg shadow-neon-green/50 hover:shadow-neon-green/80 hover:translate-y-[-2px] hover:shadow-2xl">
-                        Copy CA
+                <!-- Token Address Box and Copy Button -->
+                <div id="tokenAddressBox" class="hidden sm:flex items-center bg-[#1e293b] rounded-lg p-2 cursor-pointer border-sketch hover:bg-slate-700 transition duration-300" title="Click to copy the address (excluding CA2.)">
+                    <span class="text-sm font-mono text-gray-400 select-none">CA: </span>
+                    <span id="tokenAddressText" class="text-sm font-mono text-white ml-2 select-none">CA2.9876543210DEADBEEF</span>
+                    <button id="copyButton" class="ml-3 text-crypto-green hover:text-white transition duration-300 focus:outline-none" aria-label="Copy button">
+                        <!-- Inline SVG Copy Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="13" height="13" x="9" y="9" rx="2" ry="2"/><path d="M5 15v-6h4"/></svg>
                     </button>
                 </div>
             </div>
-        </section>
+        </div>
+    </header>
 
-        <!-- Chart Section -->
-        <section id="chart" class="py-16 sm:py-20 lg:py-24 border-t-2 border-neon-green/70">
-            <h2 class="text-4xl sm:text-5xl font-extrabold text-neon-green text-center mb-12 drop-shadow-md shadow-neon-green font-futuristic">Dexscreener Chart</h2>
-            <!-- Pulzáló keret a charton is -->
-            <div id="dexscreener-embed" class="shadow-2xl shadow-neon-green/50 rounded-2xl overflow-hidden border border-neon-green/50 pulsing-box">
-                <iframe src="https://dexscreener.com/solana/B71cRkgnCSvST1VaX2YTeySqjdE1viAPLV8wzJRUMvds?embed=1&loadChartSettings=0&chartLeftToolbar=0&chartTheme=dark&theme=dark&chartStyle=0&chartType=usd&interval=15"></iframe>
+    <main class="pt-20">
+
+        <!-- 1. Hero Section (Ticker, Logo, Banner) -->
+        <section id="hero" class="custom-container mx-auto px-4 py-12 text-center">
+            
+            <div class="flex flex-col items-center justify-center mb-10">
+                <!-- Logo Placeholder - Sketchy Look -->
+                <img src="pl1.png" alt="PumpLife Logo" class="w-32 h-32 rounded-full border-4 border-black shadow-sketch mb-4">
+                
+                <!-- Main Ticker -->
+                <h1 class="text-7xl sm:text-8xl font-black mb-4 font-bangers drop-shadow-lg text-black">
+                    WELCOME TO <span class="text-crypto-green text-shadow-sketch">PUMPLIFE</span>
+                </h1>
+                <p class="text-2xl italic text-gray-700">...TugLife's only true successor. GET READY TO PUMP!</p>
+            </div>
+
+            <!-- Banner Placeholder (1500x500px aspect ratio) - Sketchy Border -->
+            <div class="rounded-xl overflow-hidden border-sketch">
+                <img src="https://placehold.co/1500x500/1e293b/00FF80?text=PUMPLIFE+BANNER\n(FILL+WITH+MEMES+HERE!)" 
+                     alt="PumpLife Banner" 
+                     class="w-full object-cover h-auto max-h-[500px]">
             </div>
         </section>
-        
-        <!-- Footer (Neon Zöld vonal) -->
-        <footer class="text-center py-8 mt-10 border-t-2 border-neon-green/70 text-gray-400 text-sm">
-            &copy; 2025 USDP - First stable coin on Pump. All rights reserved. <span class="text-neon-green drop-shadow-sm shadow-neon-green font-futuristic ml-2">// DECENTRALIZED FUTURES ONLINE</span>
-        </footer>
+
+        <!-- 2. About Section -->
+        <section id="about" class="custom-container mx-auto px-4 py-16">
+            <!-- ADDED text-shadow-sketch for readability -->
+            <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
+                ABOUT $PUMPLIFE - The Meme Pump!
+            </h2>
+            <div class="content-box-dark p-8 rounded-xl border-sketch">
+                <p class="text-xl leading-relaxed">
+                    Listen up, degens! **PumpLife** isn't just another coin; it's the digital reincarnation of **TugLife** energy, injected directly into the crypto bloodstream. You know TugLife—the pure, chaotic joy of something hilarious happening when you least expect it? Yeah, we bottled that and made it tradable.
+                </p>
+                <p class="text-xl leading-relaxed mt-4">
+                    Our mission is simple: **Maximum Pump, Maximum Meme.** Forget utility, forget roadmaps (okay, we have one, but it's probably drawn in crayon). We're here for the community, the laughs, and the glorious, unexpected **PUMP**. If you aren't ready to laugh while watching your portfolio do cartwheels, you're not ready for the PumpLife. **TugLife meme philosophy meets crypto volatility!**
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. HOW TO BUY Section (Solana Style) -->
+        <section id="how-to-buy" class="custom-container mx-auto px-4 py-16">
+            <!-- ADDED text-shadow-sketch for readability -->
+            <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
+                HOW TO PUMP $PL (Solana Style)
+            </h2>
+            <div class="grid md:grid-cols-4 gap-6 text-center">
+                
+                <!-- Step 1 -->
+                <div class="p-6 rounded-xl border-sketch content-box-dark">
+                    <span class="text-5xl font-bangers text-crypto-green">1.</span>
+                    <h3 class="text-3xl font-bangers text-white mt-2">GET A WALLET</h3>
+                    <p class="text-gray-400 mt-2">Download **Phantom** or **Solflare**. Seriously, get one. Don't be a boomer.</p>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="p-6 rounded-xl border-sketch content-box-dark">
+                    <span class="text-5xl font-bangers text-crypto-green">2.</span>
+                    <h3 class="text-3xl font-bangers text-white mt-2">BUY SOME $SOL</h3>
+                    <p class="text-gray-400 mt-2">Buy **SOL** on a CEX (like Coinbase/Binance) and send it to your new Solana wallet address.</p>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="p-6 rounded-xl border-sketch content-box-dark">
+                    <span class="text-5xl font-bangers text-crypto-green">3.</span>
+                    <h3 class="text-3xl font-bangers text-white mt-2">COPY THE CA</h3>
+                    <p class="text-gray-400 mt-2">Click the button above to copy the **$PUMPLIFE** Contract Address (CA). Don't mess this up.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="p-6 rounded-xl border-sketch content-box-dark">
+                    <span class="text-5xl font-bangers text-crypto-green">4.</span>
+                    <h3 class="text-3xl font-bangers text-white mt-2">SWAP FOR GLORY!</h3>
+                    <p class="text-gray-400 mt-2">Go to a DEX (Raydium/Jupiter). Paste the CA. Swap **SOL** for **$PL**. Set slippage high (8-10%) for maximum pump potential!</p>
+                </div>
+                
+            </div>
+        </section>
+
+
+        <!-- 4. Memes Section (Slideshow) -->
+        <section id="memes" class="custom-container mx-auto px-4 py-16">
+            <!-- ADDED text-shadow-sketch for readability -->
+            <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
+                MEME MASTERPIECES (You supply the JPEGs!)
+            </h2>
+            <div class="relative content-box-dark p-4 rounded-xl border-sketch overflow-hidden">
+                
+                <!-- Carousel Container -->
+                <div id="meme-carousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Placeholder images generated by JS -->
+                </div>
+
+                <!-- Navigation Buttons -->
+                <button onclick="prevMeme()" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/80 text-white p-3 rounded-full border-4 border-crypto-green hover:bg-crypto-green hover:text-black transition duration-300 z-10 focus:outline-none shadow-sketch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <button onclick="nextMeme()" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/80 text-white p-3 rounded-full border-4 border-crypto-green hover:bg-crypto-green hover:text-black transition duration-300 z-10 focus:outline-none shadow-sketch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+
+                <!-- Small Copy Notification Box -->
+                <div id="copyNotification" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-crypto-green text-black font-bangers py-2 px-4 rounded-lg opacity-0 transition-opacity duration-300 z-30 shadow-sketch">
+                    Successfully Copied!
+                </div>
+            </div>
+        </section>
 
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-black/80 border-t-4 border-crypto-green/50 mt-12 py-6 text-center shadow-sketch">
+        <div class="custom-container mx-auto px-4">
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 PumpLife MemeCoin. All Rights Reserved. | <span class="text-crypto-green font-bangers">$PUMPLIFE</span>
+            </p>
+            <p class="text-gray-500 text-xs mt-1">
+                TugLife Meme Philosophy Powered. Not financial advice. Just PUMP it.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Logic -->
     <script>
-        // JavaScript for CA copying and animated feedback
-        const caAddress = "8HFKuJcUpBmjzuvd68K1XhwVkRCvqS3WJQir4Y4GjnnG";
-        const caBox = document.getElementById('ca-box');
-        const copyMessage = document.getElementById('copy-message');
+        document.addEventListener('DOMContentLoaded', () => {
+            const tokenAddressText = document.getElementById('tokenAddressText');
+            const tokenAddressBox = document.getElementById('tokenAddressBox');
+            const copyNotification = document.getElementById('copyNotification');
 
-        /**
-         * Copies the given text to the clipboard and shows a feedback message.
-         * @param {string} text The text to be copied to the clipboard.
-         */
-        function copyCA(text) {
-            // Using navigator.clipboard.writeText is the preferred method
-            navigator.clipboard.writeText(text).then(() => {
-                // Show feedback
-                copyMessage.textContent = 'CA Copied to Clipboard!';
-                copyMessage.classList.remove('opacity-0', 'translate-x-10');
-                copyMessage.classList.add('opacity-100', 'translate-x-0');
+            // --- 1. Copy Function (Token Address) ---
+            tokenAddressBox.addEventListener('click', (event) => {
+                // Get the full address text
+                const fullAddress = tokenAddressText.textContent || tokenAddressText.innerText;
                 
-                // Hide after 3 seconds
-                setTimeout(() => {
-                    copyMessage.classList.remove('opacity-100', 'translate-x-0');
-                    copyMessage.classList.add('opacity-0', 'translate-x-10');
-                }, 3000);
+                // Extract the part to copy (after CA2.)
+                const prefix = 'CA2.';
+                let textToCopy = fullAddress;
 
-            }).catch(err => {
-                console.error('Copy failed (trying fallback):', err);
-                // Fallback: For older browsers/environments
-                try {
-                    const tempInput = document.createElement('input');
-                    tempInput.value = text;
-                    document.body.appendChild(tempInput);
-                    tempInput.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(tempInput);
-                    
-                    // Show feedback on successful fallback
-                    copyMessage.textContent = 'CA Copied (Fallback)!';
-                    copyMessage.classList.remove('opacity-0', 'translate-x-10');
-                    copyMessage.classList.add('opacity-100', 'translate-x-0');
-                    setTimeout(() => {
-                        copyMessage.classList.remove('opacity-100', 'translate-x-0');
-                        copyMessage.classList.add('opacity-0', 'translate-x-10');
-                        copyMessage.textContent = 'CA Copied to Clipboard!'; // Restore original message
-                    }, 3000);
-                } catch (err) {
-                    // Using custom modal instead of alert()
-                    console.error('Copy failed with fallback as well. Please copy manually:', err);
+                if (fullAddress.startsWith(prefix)) {
+                    // Copy only the part after CA2.
+                    textToCopy = fullAddress.substring(prefix.length);
                 }
-            });
-        }
 
-        // Event listener for the CA Box in the header
-        caBox.addEventListener('click', () => {
-            copyCA(caAddress);
-        });
-
-        // Expose the global copyCA so the buy button can use it
-        window.copyCA = copyCA;
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        /* --- SLIDESHOW LOGIC --- */
-        const memeImages = [
-            "https://pbs.twimg.com/media/G2KxUNZW0AAPzij?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2Fuw_4WYAAhyj_?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2Kbuk9aIAAUj57?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2KaVT6aIAE7pfg?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2KZgKIXwAASMhS?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2KQv4_XEAA7mMZ?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2KPvvZaIAEI6XY?format=jpg&name=small",
-            "https://pbs.twimg.com/media/G2JNSgaXsAAFtem?format=jpg&name=small"
-        ];
-
-        let currentSlideIndex = 0;
-
-        /**
-         * Dynamically loads the image slides into the DOM.
-         */
-        function loadSlides() {
-            const slideshowContainer = document.getElementById('slideshow-images');
-            memeImages.forEach((src, index) => {
-                const slideDiv = document.createElement('div');
-                slideDiv.className = 'slide';
-                slideDiv.id = `slide-${index}`;
+                // Create a temporary textarea for copying
+                const tempInput = document.createElement('textarea');
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
                 
-                const img = document.createElement('img');
-                img.src = src;
-                img.alt = `USDP Meme ${index + 1}`;
-                img.className = 'w-full h-full object-contain p-2 rounded-2xl'; // object-contain, hogy ne vágja le
-                
-                slideDiv.appendChild(img);
-                slideshowContainer.appendChild(slideDiv);
+                // Execute copy command
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                // Show notification
+                copyNotification.textContent = `Copied: ${textToCopy.substring(0, 10)}...`;
+                copyNotification.classList.remove('opacity-0');
+                copyNotification.classList.add('opacity-100');
+
+                // Hide notification after 2 seconds
+                setTimeout(() => {
+                    copyNotification.classList.remove('opacity-100');
+                    copyNotification.classList.add('opacity-0');
+                }, 2000);
             });
-            showSlide(0); // Show the first slide
-        }
 
-        /**
-         * Changes the displayed slide based on the offset.
-         * @param {number} n The direction to move (1 for next, -1 for previous).
-         */
-        function changeSlide(n) {
-            currentSlideIndex += n;
-            if (currentSlideIndex >= memeImages.length) {
-                currentSlideIndex = 0;
-            }
-            if (currentSlideIndex < 0) {
-                currentSlideIndex = memeImages.length - 1;
-            }
-            showSlide(currentSlideIndex);
-        }
 
-        /**
-         * Sets the visibility of the slides.
-         * @param {number} n The index of the slide to display.
-         */
-        function showSlide(n) {
-            const slides = document.querySelectorAll('.slide');
-            const indexDisplay = document.getElementById('slide-index-display');
+            // --- 2. Slideshow Function (Memes) ---
+            const carousel = document.getElementById('meme-carousel');
+            // Placeholder images adjusted to the green theme
+            const memeImages = [
+                "https://placehold.co/800x600/00FF80/1a1a1a?text=MEME+1\n(PUMP+IT!)",
+                "https://placehold.co/800x600/1e293b/00FF80?text=MEME+2\n(TUG+LIFE+REACTION)",
+                "https://placehold.co/800x600/00CC00/f0f0f0?text=MEME+3\n(COMMUNITY+STRONG)",
+                "https://placehold.co/800x600/1a1a1a/00FF80?text=MEME+4\n(DIAMOND+HANDS)",
+            ];
+            let currentMemeIndex = 0;
 
-            if (slides.length === 0) return;
-
-            // Deactivate all slides
-            slides.forEach(slide => slide.classList.remove('active'));
-
-            // Activate the current slide
-            slides[n].classList.add('active');
-            
-            // Update index display
-            indexDisplay.textContent = `${n + 1} / ${memeImages.length}`;
-        }
-        
-        // Expose functions globally for HTML onClick
-        window.changeSlide = changeSlide;
-
-        // Load slides when the window is ready
-        window.onload = function () {
-            loadSlides();
-            // Start the smooth scrolling listener after DOM is ready
-            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+            /**
+             * Populates the carousel with meme placeholders.
+             */
+            function initializeCarousel() {
+                carousel.innerHTML = '';
+                memeImages.forEach((src, index) => {
+                    const imgContainer = document.createElement('div');
+                    imgContainer.className = 'w-full flex-shrink-0'; 
+                    // Add sketchy border to meme image containers
+                    imgContainer.innerHTML = `<img src="${src}" alt="PumpLife Meme Image ${index + 1}" class="w-full h-auto object-contain rounded-lg border-sketch">`;
+                    carousel.appendChild(imgContainer);
                 });
-            });
-        }
-        /* --- SLIDESHOW LOGIC VÉGE --- */
+                updateCarousel();
+            }
+
+            /**
+             * Updates the carousel position based on the current index.
+             */
+            function updateCarousel() {
+                // Calculate offset to move the carousel
+                const offset = -currentMemeIndex * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+            }
+
+            // Global functions for navigation buttons
+            window.nextMeme = () => {
+                currentMemeIndex = (currentMemeIndex + 1) % memeImages.length;
+                updateCarousel();
+            };
+
+            window.prevMeme = () => {
+                currentMemeIndex = (currentMemeIndex - 1 + memeImages.length) % memeImages.length;
+                updateCarousel();
+            };
+
+            // Initialize the carousel on load
+            initializeCarousel();
+        });
     </script>
+
 </body>
 </html>
