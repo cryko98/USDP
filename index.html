@@ -97,11 +97,12 @@
             <!-- Navigation Links -->
             <nav class="hidden md:flex space-x-8">
                 <a href="#about" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">About</a>
+                <a href="#chart" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">Chart</a>
                 <a href="#how-to-buy" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">How To Buy</a>
                 <a href="#memes" class="text-white hover:text-crypto-green transition duration-300 font-bangers text-xl">Memes</a>
-                <!-- Buy Button - Sketchy Style -->
+                <!-- Buy Button - Sketchy Style - CHANGED $PL to $PUMPLIFE -->
                 <button class="bg-crypto-green text-black font-bangers text-xl px-4 py-1 rounded-md shadow-sketch" onclick="alert('This is where the exchange link goes!')">
-                    BUY $PL NOW!
+                    BUY $PUMPLIFE NOW!
                 </button>
             </nav>
 
@@ -180,6 +181,28 @@
                 </p>
             </div>
         </section>
+        
+        <!-- 2.5. Live Chart Section (Dexscreener Embed) - NEW SECTION -->
+        <section id="chart" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
+            <!-- ADDED text-shadow-sketch for readability -->
+            <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
+                $PUMPLIFE LIVE CHART
+            </h2>
+            <div class="content-box-dark p-2 rounded-xl border-sketch overflow-hidden">
+                <!-- Dexscreener Placeholder Iframe (Solana theme, dark theme, trades/info turned off) -->
+                <!-- REPLACE 'YOUR_CONTRACT_ADDRESS_HERE' with the actual Contract Address (CA) -->
+                <iframe 
+                    src="https://dexscreener.com/solana/YOUR_CONTRACT_ADDRESS_HERE?theme=dark&amp;trades=0&amp;info=0" 
+                    width="100%" 
+                    height="550" 
+                    style="border: none; border-radius: 8px;"
+                    title="PumpLife Live Chart">
+                </iframe>
+                <p class="text-center text-sm p-2 text-gray-400">
+                    The exact trading chart will be available when the $PUMPLIFE Contract Address is provided.
+                </p>
+            </div>
+        </section>
 
         <!-- 3. HOW TO BUY Section (Solana Style) -->
         <section id="how-to-buy" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
@@ -190,9 +213,9 @@
             <!-- Right Side (Char 8) -->
             <img src="pl0.png" alt="Floating Character 8" class="hidden md:block floating-character w-44 h-auto top-40 right-0 translate-x-1/2" style="animation-delay: 3.5s; transform: rotate(8deg);">
 
-            <!-- ADDED text-shadow-sketch for readability -->
+            <!-- ADDED text-shadow-sketch for readability - CHANGED $PL to $PUMPLIFE -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
-                HOW TO PUMP $PL (Solana Style)
+                HOW TO PUMP $PUMPLIFE (Solana Style)
             </h2>
             <div class="grid md:grid-cols-4 gap-6 text-center">
                 
@@ -217,11 +240,11 @@
                     <p class="text-gray-400 mt-2">Click the button above to copy the **$PUMPLIFE** Contract Address (CA). Don't mess this up.</p>
                 </div>
 
-                <!-- Step 4 -->
+                <!-- Step 4 - CHANGED $PL to $PUMPLIFE -->
                 <div class="p-6 rounded-xl border-sketch content-box-dark">
                     <span class="text-5xl font-bangers text-crypto-green">4.</span>
                     <h3 class="text-3xl font-bangers text-white mt-2">SWAP FOR GLORY!</h3>
-                    <p class="text-gray-400 mt-2">Go to a DEX (Raydium/Jupiter). Paste the CA. Swap **SOL** for **$PL**. Set slippage high (8-10%) for maximum pump potential!</p>
+                    <p class="text-gray-400 mt-2">Go to a DEX (Raydium/Jupiter). Paste the CA. Swap **SOL** for **$PUMPLIFE**. Set slippage high (8-10%) for maximum pump potential!</p>
                 </div>
                 
             </div>
