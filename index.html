@@ -20,6 +20,7 @@
             font-family: 'Permanent Marker', cursive; /* Hand-drawn body text */
             background-color: var(--light-bg); /* New background color */
             color: var(--dark-text); /* Main body text is now dark */
+            overflow-x: hidden; /* Avoid horizontal scrollbar due to absolute positioning */
         }
         /* Style for high-impact headings */
         .font-bangers {
@@ -29,7 +30,7 @@
         .text-crypto-green { color: var(--crypto-green); }
         .bg-crypto-green { background-color: var(--crypto-green); }
         
-        /* === NEW: TEXT SHADOW FOR READABILITY ON LIGHT BG === */
+        /* === TEXT SHADOW FOR READABILITY ON LIGHT BG === */
         .text-shadow-sketch {
             text-shadow: 3px 3px 0 #000; 
         }
@@ -59,6 +60,20 @@
 
         .custom-container { max-width: 1200px; }
         html { scroll-padding-top: 5rem; }
+
+        /* === NEW: FLOATING CHARACTER ANIMATION === */
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(1deg); }
+            50% { transform: translateY(-15px) rotate(-1deg); }
+            100% { transform: translateY(0px) rotate(1deg); }
+        }
+        .floating-character {
+            animation: float 4s ease-in-out infinite;
+            position: absolute;
+            opacity: 0.85; /* Slight transparency for style */
+            pointer-events: none; /* Ensure they don't block clicks */
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
@@ -116,8 +131,11 @@
     <main class="pt-20">
 
         <!-- 1. Hero Section (Ticker, Logo, Banner) -->
-        <section id="hero" class="custom-container mx-auto px-4 py-12 text-center">
+        <section id="hero" class="custom-container mx-auto px-4 py-12 text-center relative overflow-hidden">
             
+            <!-- FLOATING CHARACTER 1: pl2.png - Top Left -->
+            <img src="pl2.png" alt="Floating Character 1" class="hidden md:block floating-character w-40 h-auto top-20 left-0 -translate-x-1/4" style="animation-delay: 0s;">
+
             <div class="flex flex-col items-center justify-center mb-10">
                 <!-- Logo Placeholder - Sketchy Look (Large and borderless) -->
                 <img src="pl1.png" alt="PumpLife Logo" class="w-64 h-64 rounded-full mb-4">
@@ -138,7 +156,11 @@
         </section>
 
         <!-- 2. About Section -->
-        <section id="about" class="custom-container mx-auto px-4 py-16">
+        <section id="about" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
+            
+            <!-- FLOATING CHARACTER 2: pl3.png - Bottom Right -->
+            <img src="pl3.png" alt="Floating Character 2" class="hidden md:block floating-character w-32 h-auto bottom-0 right-0 translate-x-1/4" style="animation-delay: 1.5s; transform: rotate(5deg);">
+
             <!-- ADDED text-shadow-sketch for readability -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
                 ABOUT $PUMPLIFE - The Meme Pump!
@@ -154,7 +176,11 @@
         </section>
 
         <!-- 3. HOW TO BUY Section (Solana Style) -->
-        <section id="how-to-buy" class="custom-container mx-auto px-4 py-16">
+        <section id="how-to-buy" class="custom-container mx-auto px-4 py-16 relative overflow-hidden">
+            
+            <!-- FLOATING CHARACTER 3: pl1.png - Mid Left (Subtle) -->
+            <img src="pl1.png" alt="Floating Character 3" class="hidden md:block floating-character w-24 h-auto top-10 left-1/4" style="animation-delay: 3s; transform: rotate(-3deg);">
+
             <!-- ADDED text-shadow-sketch for readability -->
             <h2 class="text-5xl font-bangers text-crypto-green mb-8 border-b-4 border-crypto-green/70 pb-2 drop-shadow-lg text-shadow-sketch">
                 HOW TO PUMP $PL (Solana Style)
